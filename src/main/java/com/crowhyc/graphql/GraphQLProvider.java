@@ -1,5 +1,6 @@
-package com.crowhyc.graphql.bookdetails;
+package com.crowhyc.graphql;
 
+import com.crowhyc.graphql.bookdetails.GraphQLDataFetcher;
 import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
@@ -20,7 +21,7 @@ import static graphql.schema.idl.TypeRuntimeWiring.newTypeWiring;
 
 /**
  * <p>
- * Description: com.crowhyc.graphql.conf
+ * Description: com.crowhyc.graphql.game
  * </p>
  * date：2019/12/1
  * email:crowhyc@163.com
@@ -33,6 +34,7 @@ public class GraphQLProvider {
     private GraphQL graphQL;
     @Autowired
     GraphQLDataFetcher graphQLDataFetchers;
+
     @Bean
     public GraphQL graphQL() {
         return graphQL;
@@ -40,7 +42,7 @@ public class GraphQLProvider {
 
     @PostConstruct
     public void init() throws IOException {
-        URL url = Resources.getResource("schema.graphqls");
+        URL url = Resources.getResource("schema.graphql");
         String sdl = Resources.toString(url, Charsets.UTF_8);
         GraphQLSchema graphQLSchema = buildSchema(sdl);
         this.graphQL = GraphQL.newGraphQL(graphQLSchema).build();
